@@ -53,6 +53,14 @@ router.post('/', function (req, res, next) {
     res.status(201).send('Added order');
 });
 
+router.delete('/:id', function (req, res, next) {
+    const response = orders.find(c => c.id === parseInt(req.params.id));
+    if (!response) return res.status(404).send("Couldn't find the order");
+    const index = orders.indexOf(response);
+    orders.splice(index, 1);
+    res.status(204).end();
+});
+
 calSum = (items) => {
     let price = 0;
     items.forEach((element, index) => {
